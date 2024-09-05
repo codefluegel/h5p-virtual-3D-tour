@@ -30,6 +30,8 @@ const ModelViewer = (props) => {
       alt='Virtual 3D Tour Model'
       auto-rotate
       loading='eager'
+      ar
+      ar-scale='fixed'
       camera-controls
     >
       {hs &&
