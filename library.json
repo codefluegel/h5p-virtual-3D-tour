@@ -1,0 +1,36 @@
+{
+  "title": "Virtual3DTour",
+  "description": "Explore an interactive world in 3D.",
+  "majorVersion": 1,
+  "minorVersion": 0,
+  "patchVersion": 0,
+  "runnable": 1,
+  "author": "codefluegel",
+  "license": "MIT",
+  "machineName": "H5P.Virtual3DTour",
+  "embedTypes": ["iframe"],
+  "preloadedDependencies": [
+    {
+      "machineName": "H5P.ModelViewerScript",
+      "majorVersion": 1,
+      "minorVersion": 0
+    }
+  ],
+  "preloadedJs": [
+    {
+      "path": "dist/h5p-virtual-threetour.js"
+    }
+  ],
+  "preloadedCss": [
+    {
+      "path": "dist/h5p-virtual-threetour.css"
+    }
+  ],
+  "editorDependencies": [
+    {
+      "machineName": "H5PEditor.Virtual3DTour",
+      "majorVersion": 1,
+      "minorVersion": 0
+    }
+  ]
+}
