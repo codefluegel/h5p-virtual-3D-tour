@@ -188,7 +188,7 @@ export default class Main extends React.Component {
       });
     } else {
       this.setState({
-        showHotspotDialog: true,
+        showInteractionDialog: true,
       });
     }
 
@@ -210,6 +210,8 @@ export default class Main extends React.Component {
     const model = getModelFromId(this.context.params.models, this.props.currentModel);
     const isStartModel = this.props.currentModel === this.context.params.startModelId;
 
+    console.log(this.state.hotspot);
+
     return (
       <div className='model-viewer-container'>
         {this.state.showInteractionDialog && (
@@ -223,11 +225,6 @@ export default class Main extends React.Component {
               audioIsPlaying={this.state.audioIsPlaying}
               onAudioIsPlaying={this.handleAudioIsPlaying.bind(this)}
             />
-          </Dialog>
-        )}
-        {this.state.showHotspotDialog && (
-          <Dialog title={'Test'} onHideTextDialog={this.handleCloseTextDialog.bind(this)}>
-            <div dangerouslySetInnerHTML={{ __html: this.state.hotspot.labelText }} />
           </Dialog>
         )}
         <div className='container'>

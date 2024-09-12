@@ -1,6 +1,6 @@
 import React from 'react';
 import './InteractionContent.scss';
-import {H5PContext} from '../../context/H5PContext';
+import { H5PContext } from '../../context/H5PContext';
 import AudioButton from '../HUD/Buttons/AudioButton';
 
 export default class InteractionContent extends React.Component {
@@ -46,14 +46,10 @@ export default class InteractionContent extends React.Component {
 
     const library = this.props.hotspot.action;
 
-    this.instance = H5P.newRunnable(
-      library,
-      this.context.contentId,
-      H5P.jQuery(contentRef)
-    );
+    this.instance = H5P.newRunnable(library, this.context.contentId, H5P.jQuery(contentRef));
 
     if (library.library.split(' ')[0] === 'H5P.Video') {
-      this.instance.on('stateChange', e => {
+      this.instance.on('stateChange', (e) => {
         if (e.data === H5P.Video.PLAYING) {
           this.props.onAudioIsPlaying('video-' + this.props.hotspot);
         }
@@ -67,9 +63,9 @@ export default class InteractionContent extends React.Component {
     if (this.instance.libraryInfo.machineName === 'H5P.Image') {
       const img = contentRef.children[0];
       const rect = this.context.getRect();
-      const contentRatio = (rect.width / rect.height);
-      const imageRatio = (this.instance.width / this.instance.height);
-      const isWide = (imageRatio > contentRatio);
+      const contentRatio = rect.width / rect.height;
+      const imageRatio = this.instance.width / this.instance.height;
+      const isWide = imageRatio > contentRatio;
       img.style.width = isWide ? '100%' : 'auto';
       img.style.height = isWide ? 'auto' : '100%';
 
@@ -80,9 +76,7 @@ export default class InteractionContent extends React.Component {
   }
 
   render() {
-    return (
-      <div ref={ el => this.initializeContent(el) } />
-    );
+    return <div ref={(el) => this.initializeContent(el)} />;
   }
 }
 
