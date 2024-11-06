@@ -210,8 +210,6 @@ export default class Main extends React.Component {
     const model = getModelFromId(this.context.params.models, this.props.currentModel);
     const isStartModel = this.props.currentModel === this.context.params.startModelId;
 
-    console.log(this.state.hotspot);
-
     return (
       <div className='model-viewer-container'>
         {this.state.showInteractionDialog && (
