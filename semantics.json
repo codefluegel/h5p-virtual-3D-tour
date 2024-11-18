@@ -2,7 +2,7 @@
   {
     "name": "modelViewerWidget",
     "type": "group",
-    "widget": "modelViewerWidget",
+    "widget": "Virtual3DTour",
     "label": "3D Model Viewer Editor/Navigation",
     "importance": "high",
     "fields": [
