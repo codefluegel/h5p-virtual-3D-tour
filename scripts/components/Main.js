@@ -44,7 +44,50 @@ export default class Main extends React.Component {
         modelViewerInstance: modelViewer,
         animations: modelViewer.availableAnimations,
       });
+      setTimeout(() => {
+        this.setState({
+          loadingSpinner: false,
+        });
+      }, 5000);
     });
+    setTimeout(() => {
+      this.setState({
+        loadingSpinner: false,
+      });
+    }, 5000);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // Check if a specific prop or state has changed to trigger the update logic
+    const modelViewer = document.getElementById('model-viewer');
+
+    if (!modelViewer) {
+      return;
+    }
+
+    modelViewer.autoRotate = false;
+
+    modelViewer.addEventListener('load', () => {
+      // Create hotspots and set model viewer instance
+      this.setState({
+        loadingSpinner: false,
+        interactions: this.state.interactions,
+        modelViewerInstance: modelViewer,
+        animations: modelViewer.availableAnimations,
+      });
+
+      setTimeout(() => {
+        this.setState({
+          loadingSpinner: false,
+        });
+      }, 500);
+      console.log(1);
+    });
+    setTimeout(() => {
+      this.setState({
+        loadingSpinner: false,
+      });
+    }, 5000);
   }
 
   componentWillUnmount() {
@@ -94,6 +137,9 @@ export default class Main extends React.Component {
 
   goToStartModel() {
     this.navigateToModel(this.context.params.startModelId);
+    this.setState({
+      loadingSpinner: false,
+    });
   }
 
   navigateToModel(modelId) {

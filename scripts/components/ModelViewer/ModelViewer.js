@@ -16,7 +16,7 @@ const ModelViewer = (props) => {
     const timeoutId = setTimeout(() => {
       sethotspots(hotspots);
       setFilePath(getSource(modelPath, contentId));
-    }, 100);
+    }, 500);
 
     return () => clearTimeout(timeoutId);
   }, [hotspots]);
