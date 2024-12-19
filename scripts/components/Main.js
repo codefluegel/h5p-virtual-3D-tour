@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Main.scss';
 import { H5PContext } from '../context/H5PContext';
-import ModelViewer from './ModelViewer/ModelViewer';
-import Dialog from './Dialog/Dialog';
-import InteractionContent from './Dialog/InteractionContent';
 import { getModelFromId } from '../h5phelpers/modelParams.js';
-import HUD from './HUD/HUD';
-import LoadingSpinner from './LoadingSpinner/LoadingSpinner.js';
+
+/** @constant {number} LOADING_SPINNER_TIMEOUT_SHORT_MS Short timeout to hide loading spinner. */
+const LOADING_SPINNER_TIMEOUT_SHORT_MS = 500;
+
+/** @constant {number} LOADING_SPINNER_TIMEOUT_MS Timeout to hide loading spinner. */
+const LOADING_SPINNER_TIMEOUT_MS = 5000;
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -48,16 +49,16 @@ export default class Main extends React.Component {
         this.setState({
           loadingSpinner: false,
         });
-      }, 5000);
+      }, LOADING_SPINNER_TIMEOUT_MS);
     });
     setTimeout(() => {
       this.setState({
         loadingSpinner: false,
       });
-    }, 5000);
+    }, LOADING_SPINNER_TIMEOUT_MS);
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     // Check if a specific prop or state has changed to trigger the update logic
     const modelViewer = document.getElementById('model-viewer');
 
@@ -80,14 +81,13 @@ export default class Main extends React.Component {
         this.setState({
           loadingSpinner: false,
         });
-      }, 500);
-      console.log(1);
+      }, LOADING_SPINNER_TIMEOUT_SHORT_MS);
     });
     setTimeout(() => {
       this.setState({
         loadingSpinner: false,
       });
-    }, 5000);
+    }, LOADING_SPINNER_TIMEOUT_MS);
   }
 
   componentWillUnmount() {
@@ -97,10 +97,9 @@ export default class Main extends React.Component {
 
   /**
    * Get the audio player for the current track.
-   *
-   * @param {string} id
-   * @param {Object} [hotspot] Parameters (Only needed initially)
-   * @return {AudioElement} or 'null' if track isn't playable.
+   * @param {string} id Audio player id.
+   * @param {object} [hotspot] Parameters (Only needed initially)
+   * @returns {HTMLAudioElement|undefined} Audio or `undefined` if track isn't playable.
    */
   getAudioPlayer(id, hotspot) {
     // Create player if none exist
@@ -156,13 +155,13 @@ export default class Main extends React.Component {
     this.props.setCurrentModelId(nextModelId);
   }
 
-  handleModelClick(event) {
+  handleModelClick() {
     // retrieve clicked point on 3D Model from model-viewer instance
     if (this.state.editingLibrary) {
-      const clickedPoint = this.state.modelViewerInstance.surfaceFromPoint(
-        event.clientX,
-        event.clientY
-      );
+      // const clickedPoint = this.state.modelViewerInstance.surfaceFromPoint(
+      //   event.clientX,
+      //   event.clientY
+      // );
 
       this.setState({
         //showHotspotDialog: true,
@@ -176,7 +175,8 @@ export default class Main extends React.Component {
 
     if (modelViewerInstance.paused) {
       modelViewerInstance.play();
-    } else {
+    }
+    else {
       modelViewerInstance.pause();
     }
   }
@@ -189,7 +189,7 @@ export default class Main extends React.Component {
   }
 
   hideInteraction() {
-    this.setState((prevState) => ({
+    this.setState(() => ({
       showInteractionDialog: false,
       hotspot: null,
     }));
@@ -212,8 +212,9 @@ export default class Main extends React.Component {
 
       const nextModelId = parseInt(hotspot.action.params.nextSceneId);
       this.navigateToModel(nextModelId);
-    } else if (hotspot.action.metadata.contentType !== 'Text') {
-      const playerId = 'interaction' + '-' + index;
+    }
+    else if (hotspot.action.metadata.contentType !== 'Text') {
+      const playerId = 'interaction' + `-${  index}`;
       if (this.state.audioIsPlaying === playerId) {
         // Pause and reset player
         const lastPlayer = this.getAudioPlayer(playerId, hotspot);
@@ -221,7 +222,8 @@ export default class Main extends React.Component {
           lastPlayer.pause();
           lastPlayer.currentTime = 0;
         }
-      } else {
+      }
+      else {
         // Start current audio playback
         const player = this.getAudioPlayer(playerId, hotspot);
         if (player) {
@@ -232,7 +234,8 @@ export default class Main extends React.Component {
       this.setState({
         showInteractionDialog: true,
       });
-    } else {
+    }
+    else {
       this.setState({
         showInteractionDialog: true,
       });

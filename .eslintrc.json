@@ -18,10 +18,10 @@
     "ecmaVersion": 2020
   },
   "rules": {
-    "valid-jsdoc": "off",
+    // H5P Group rules
     "semi": ["error", "always"],
     "indent": ["error", 2, { "SwitchCase": 1 }],
-    // "brace-style": ["error", "stroustrup"],
+    "brace-style": ["error", "stroustrup"],
     "keyword-spacing": ["error", { "after": true }],
     "comma-spacing": ["error", { "before": false, "after": true }],
     "space-infix-ops": ["error", { "int32Hint": false }],
@@ -33,11 +33,23 @@
       "asyncArrow": "always"
     }],
     "no-extra-boolean-cast": "off",
-    "no-console": ["error", { "allow": ["warn", "error", "log"] }],
-    "quotes": ["error", "double"],
-    "arrow-parens": ["error", "always"],
-    "object-curly-spacing": ["error", "always"],
-    "no-alert": ["error"]
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "quotes": ["error", "single"],
+     // SNORDIAN specific rules
+     "arrow-parens": ["error", "always"],
+     "object-curly-spacing": ["error", "always"],
+     "prefer-template": ["error"],
+     "no-await-in-loop": ["error"],
+     "no-self-compare": ["error"],
+     "dot-notation": ["error"],
+     "no-eval": ["error"],
+     "no-implied-eval": ["error"],
+     "no-magic-numbers": ["warn", {
+       "ignoreArrayIndexes": true,
+       "ignoreDefaultValues": true,
+       "enforceConst": true,
+       "ignore": [-1, 0, 1]
+     }]
   },
   "plugins": ["jsdoc"],
   "parser": "@babel/eslint-parser",

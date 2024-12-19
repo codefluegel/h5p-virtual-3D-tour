@@ -1,41 +1,6 @@
 import { extend, purifyHTML } from './utils.js';
 
 /**
- * Set interaction defaults.
- * @param {object} interactions Scene parameters.
- * @returns {object} Sanitized scene parameters.
- */
-const setInteractionDefaults = (interactions) => {
-  interactions = interactions.map((interaction) => {
-    interaction = extend(
-      {
-        label: {
-          labelPosition: 'inherit',
-          showLabel: 'inherit',
-        },
-        ...(interaction.showAsHotspot && {
-          hotspotSettings: {
-            isHotspotTabbable: true,
-            hotSpotSizeValues: '256,128',
-          },
-          iconTypeTextBox: 'text-icon',
-        }),
-      },
-      interaction
-    );
-
-    // Add unique id as key for mapping React components.
-    if (!interaction.id) {
-      interaction.id = H5P.createUUID();
-    }
-
-    return interaction;
-  });
-
-  return interactions;
-};
-
-/**
  * Sanitize the content type's parameters.
  * @param {object} params Parameters.
  * @returns {object} Sanitized parameters.

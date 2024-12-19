@@ -2,7 +2,6 @@ import React from 'react';
 import './HUD.scss';
 
 import { H5PContext } from '../../context/H5PContext';
-import Button from './Buttons/Button/Button';
 
 export default class HUD extends React.Component {
   constructor(props) {
@@ -13,9 +12,8 @@ export default class HUD extends React.Component {
 
   /**
    * Help pick the audio track for the given scene.
-   *
-   * @param {Object} scene
-   * @return {Object}
+   * @param {object} scene Scene object.
+   * @returns {object} Props for the audio track.
    */
   getSceneAudioTrack(scene) {
     const props = {
@@ -39,6 +37,7 @@ export default class HUD extends React.Component {
 
   /**
    * React - create DOM elements
+   * @returns {HTMLElement} React element.
    */
   render() {
     return (
