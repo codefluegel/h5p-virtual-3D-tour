@@ -8,29 +8,30 @@ export default class Button extends React.Component {
 
   handleClick() {
     if (!this.props.disabled) {
-      console.log(this.props);
-      this.props.onClick(); 
+      this.props.onClick();
     }
   }
 
   /**
    * React - after render
+   * @param {object} prevProps Previous props.
    */
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.nextFocus !== this.props.nextFocus && this.props.type === this.props.nextFocus) {
       this.element.focus();
     }
   }
 
   /**
-   * React - create DOM elements
+   * React - create DOM elements.
+   * @returns {HTMLElement} React element.
    */
   render() {
     return (
       <div className='btn-wrap'>
         <button
           ref={(el) => (this.element = el)}
-          className={'hud-btn ' + this.props.type}
+          className={`hud-btn ${  this.props.type}`}
           onClick={this.handleClick.bind(this)}
           aria-label={this.props.label}
           disabled={!!this.props.disabled}

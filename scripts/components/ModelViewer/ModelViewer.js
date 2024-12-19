@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getSource } from '../../context/H5PContext';
+
+/** @constant {number} FILE_PATH_TIMEOUT_MS File path setting timeout. */
+const FILE_PATH_TIMEOUT_MS = 500;
 
 const ModelViewer = (props) => {
   const { handleClick, hotspots, modelPath, id, showContentModal, contentId, mvInstance } = props;
@@ -16,7 +19,7 @@ const ModelViewer = (props) => {
     const timeoutId = setTimeout(() => {
       sethotspots(hotspots);
       setFilePath(getSource(modelPath, contentId));
-    }, 500);
+    }, FILE_PATH_TIMEOUT_MS);
 
     return () => clearTimeout(timeoutId);
   }, [hotspots]);
