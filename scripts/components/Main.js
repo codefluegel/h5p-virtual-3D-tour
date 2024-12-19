@@ -8,6 +8,7 @@ import InteractionContent from './Dialog/InteractionContent';
 import { getModelFromId } from '../h5phelpers/modelParams.js';
 import HUD from './HUD/HUD';
 import LoadingSpinner from './LoadingSpinner/LoadingSpinner.js';
+import AudioButton from './HUD/Buttons/AudioButton.js';
 
 export default class Main extends React.Component {
   constructor(props) {
