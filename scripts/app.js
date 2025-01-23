@@ -1,7 +1,5 @@
-import React from 'react';
 import { createRoot } from 'react-dom/client';
-import Main from './components/Main';
-import { H5PContext } from './context/H5PContext';
+
 import { sanitizeContentTypeParameters } from './utils/sanitization';
 
 export default class Wrapper extends H5P.EventDispatcher {
@@ -102,7 +100,8 @@ export default class Wrapper extends H5P.EventDispatcher {
     const wrapperSize = this.wrapper.getBoundingClientRect();
     if (wrapperSize.width < mobileThreshold) {
       this.wrapper.classList.add('mobile');
-    } else {
+    }
+    else {
       this.wrapper.classList.remove('mobile');
     }
   }
