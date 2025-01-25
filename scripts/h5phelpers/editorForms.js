@@ -1,10 +1,9 @@
 import { getLibraries } from '../context/H5PContext';
 
 /**
- * Get scenes field from Three Image semantics structure
- *
- * @param field
- * @returns {Object}
+ * Get scenes field from Three Image semantics structure.
+ * @param {string} field Name of the field we wish to find.
+ * @returns {null|object} Field if found, otherwise null.
  */
 export const getModelField = (field) => {
   return H5PEditor.findSemanticsField('modelViewerWidget', field);
@@ -12,10 +11,9 @@ export const getModelField = (field) => {
 
 /**
  * Get interactions field within a scene from the Three Image semantics
- * structure
- *
- * @param field
- * @returns {Object}
+ * structure.
+ * @param {string} field Name of the field we wish to find.
+ * @returns {null|object} Field if found, otherwise null.
  */
 export const getInteractionsField = (field) => {
   const modelFields = getModelField(field);
@@ -25,10 +23,9 @@ export const getInteractionsField = (field) => {
 
 /**
  * Get library data for a single library
- *
- * @param field
- * @param library
- * @returns {Promise<*>}
+ * @param {object} field Field object.
+ * @param {string} library Library name
+ * @returns {Promise<*>} Library data.
  */
 export const getLibraryDataFromFields = async (field, library) => {
   const libraries = await getLibraries(field);
@@ -39,9 +36,8 @@ export const getLibraryDataFromFields = async (field, library) => {
 
 /**
  * Checks if children are valid and sets error messages for invalid fields.
- *
- * @param children
- * @returns {boolean}
+ * @param {object[]} children Children to validate.
+ * @returns {boolean} True if all children are valid.
  */
 export const isChildrenValid = (children) => {
   let isInputsValid = true;

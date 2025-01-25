@@ -3,6 +3,7 @@ import React from 'react';
 /**
  * Get absolute path to image from relative parameters path
  * @param {string} path Relative path as found in content parameters
+ * @param {string} contentId Content id.
  * @returns {string} Absolute path to image
  */
 export const getSource = (path, contentId) => {
@@ -16,7 +17,6 @@ export const getInteractionsField = (field) => {
 };
 
 export const getModelField = (field) => {
-  console.log(H5P.Virtual3DTour.findSemanticsField('modelViewerWidget', field));
   return H5P.Virtual3DTour.findSemanticsField('modelViewerWidget', field);
 };
 

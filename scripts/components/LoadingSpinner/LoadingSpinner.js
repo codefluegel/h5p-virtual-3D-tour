@@ -1,7 +1,6 @@
-import React from 'react';
 import './LoadingSpinner.scss';
 
-const LoadingSpinner = (props) => {
+const LoadingSpinner = () => {
   return (
     <div id='outer'>
       <div id='middle'>

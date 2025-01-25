@@ -51,7 +51,7 @@ export default class InteractionContent extends React.Component {
     if (library.library.split(' ')[0] === 'H5P.Video') {
       this.instance.on('stateChange', (e) => {
         if (e.data === H5P.Video.PLAYING) {
-          this.props.onAudioIsPlaying('video-' + this.props.hotspot);
+          this.props.onAudioIsPlaying(`video-${  this.props.hotspot}`);
         }
       });
     }
