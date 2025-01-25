@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import './Main.scss';
 import { H5PContext } from '../context/H5PContext';
 import { getModelFromId } from '../h5phelpers/modelParams.js';
+import HUD from './HUD/HUD';
+import LoadingSpinner from './LoadingSpinner/LoadingSpinner.js';
+import AudioButton from './HUD/Buttons/AudioButton.js';
 
 /** @constant {number} LOADING_SPINNER_TIMEOUT_SHORT_MS Short timeout to hide loading spinner. */
 const LOADING_SPINNER_TIMEOUT_SHORT_MS = 500;
