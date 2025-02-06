@@ -1,7 +1,8 @@
 import React from 'react';
+import Button from './Buttons/Button/Button';
 import './HUD.scss';
-
 import { H5PContext } from '../../context/H5PContext';
+import PropTypes from 'prop-types';
 
 export default class HUD extends React.Component {
   constructor(props) {
@@ -58,3 +59,15 @@ export default class HUD extends React.Component {
 }
 
 HUD.contextType = H5PContext;
+
+HUD.propTypes = {
+  onGoToStartModel: PropTypes.func,
+  showHomeButton: PropTypes.bool,
+  isStartModel: PropTypes.bool,
+  audioIsPlaying: PropTypes.string,
+  onAudioIsPlaying: PropTypes.func,
+  isHiddenBehindOverlay: PropTypes.bool,
+  nextFocus: PropTypes.string,
+  scene: PropTypes.object,
+  onSceneDescription: PropTypes.func,
+};

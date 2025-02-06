@@ -1,6 +1,7 @@
 import React from 'react';
 import './Dialog.scss';
 import { H5PContext } from '../../context/H5PContext';
+import PropTypes from 'prop-types';
 
 export default class Dialog extends React.Component {
   constructor(props) {
@@ -60,3 +61,10 @@ export default class Dialog extends React.Component {
 }
 
 Dialog.contextType = H5PContext;
+
+Dialog.propTypes = {
+  title: PropTypes.string,
+  onHideTextDialog: PropTypes.func,
+  dialogClasses: PropTypes.array,
+  children: PropTypes.node,
+};

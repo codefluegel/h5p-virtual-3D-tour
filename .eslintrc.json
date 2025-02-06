@@ -11,6 +11,7 @@
   },
   "extends": [
     "eslint:recommended",
+    "plugin:react/recommended",
     "plugin:jsdoc/recommended"
   ],
   "parserOptions": {
@@ -58,6 +59,9 @@
       "preferredTypes": {
         "Function": "function"
       }
+    },
+    "react": {
+      "version": "detect"
     }
   }
 }
