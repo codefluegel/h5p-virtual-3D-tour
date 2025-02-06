@@ -1,5 +1,6 @@
 import React from 'react';
 import './Button.scss';
+import PropTypes from 'prop-types';
 
 export default class Button extends React.Component {
   constructor(props) {
@@ -43,3 +44,11 @@ export default class Button extends React.Component {
     );
   }
 }
+
+Button.propTypes = {
+  type: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+  nextFocus: PropTypes.string,
+};

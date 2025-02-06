@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Main.scss';
 import { H5PContext } from '../context/H5PContext';
+import ModelViewer from './ModelViewer/ModelViewer';
+import Dialog from './Dialog/Dialog';
+import InteractionContent from './Dialog/InteractionContent';
 import { getModelFromId } from '../h5phelpers/modelParams.js';
 import HUD from './HUD/HUD';
 import LoadingSpinner from './LoadingSpinner/LoadingSpinner.js';
@@ -305,4 +308,7 @@ Main.contextType = H5PContext;
 
 Main.propTypes = {
   modelPath: PropTypes.string,
+  currentModel: PropTypes.number,
+  setCurrentModelId: PropTypes.func,
+  paramInteractions: PropTypes.array,
 };

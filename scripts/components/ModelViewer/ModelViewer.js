@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getSource } from '../../context/H5PContext';
+import PropTypes from 'prop-types';
 
 /** @constant {number} FILE_PATH_TIMEOUT_MS File path setting timeout. */
 const FILE_PATH_TIMEOUT_MS = 500;
@@ -64,3 +65,13 @@ const ModelViewer = (props) => {
 };
 
 export default ModelViewer;
+
+ModelViewer.propTypes = {
+  id: PropTypes.string,
+  contentId: PropTypes.string,
+  handleClick: PropTypes.func,
+  hotspots: PropTypes.array,
+  modelPath: PropTypes.string,
+  showContentModal: PropTypes.func,
+  mvInstance: PropTypes.object,
+};

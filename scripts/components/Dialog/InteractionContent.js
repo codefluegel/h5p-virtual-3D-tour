@@ -2,6 +2,7 @@ import React from 'react';
 import './InteractionContent.scss';
 import { H5PContext } from '../../context/H5PContext';
 import AudioButton from '../HUD/Buttons/AudioButton';
+import PropTypes from 'prop-types';
 
 export default class InteractionContent extends React.Component {
   constructor(props) {
@@ -81,3 +82,10 @@ export default class InteractionContent extends React.Component {
 }
 
 InteractionContent.contextType = H5PContext;
+
+InteractionContent.propTypes = {
+  hotspot: PropTypes.object,
+  audioIsPlaying: PropTypes.string,
+  onAudioIsPlaying: PropTypes.func,
+  onResize: PropTypes.func,
+};
