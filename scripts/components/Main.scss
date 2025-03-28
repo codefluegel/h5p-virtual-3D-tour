@@ -1,6 +1,5 @@
 
-@import "../styles/icons.scss";
- 
+@use "../styles/icons";
 
 .model-viewer-container{
     display: flex;
@@ -10,7 +9,7 @@
     overflow: hidden;
     padding: 5px;
   }
-  
+
   .container{
     display: flex;
     flex-direction: row;
@@ -18,14 +17,14 @@
     height: 100%;
     overflow: hidden;
   }
-  
+
   .mv-container {
     display: flex;
     flex-direction: column;
     width: 100%;
     aspect-ratio: 16/9;
   }
-  
+
   .mv-list {
     display: flex;
     flex-direction: column;
@@ -38,8 +37,8 @@
     list-style: none;
     border-left: 1px solid #e0e0e0;
   }
-  
-  
+
+
   .h5p_text:before {
     content: 'T';
     font-family: 'H5PFontAwesome4';
@@ -51,33 +50,33 @@
   }
 
   .h5p_image:before {
-    content: $image;
+    content: icons.$image;
     font-family: 'H5PFontAwesome4';
   }
 
   .h5p_audio:before {
-    content: $audio;
+    content: icons.$audio;
     font-family: 'H5PFontAwesome4';
   }
 
   .h5p_video:before {
-    content: $video;
+    content: icons.$video;
     font-family: 'H5PFontAwesome4';
   }
 
   .h5p_questionnaire:before {
-    content: $questionnaire;
+    content: icons.$questionnaire;
     font-family: 'H5PFontAwesome4';
     margin-top:2px;
   }
 
   .h5p_file_for_download:before {
-    content: $fileForDownload;
+    content: icons.$fileForDownload;
     font-family: 'H5PFontAwesome4';
   }
 
   .h5p_go_to_scene:before {
-    content: $goToScene;
+    content: icons.$goToScene;
     font-family: 'H5PFontAwesome4';
   }
 
@@ -85,18 +84,18 @@
   .h5p_singlechoiceset:before,
   .h5p_summary:before {
     font-family: "H5PFontIcons";
-    content: $summary;
+    content: icons.$summary;
   }
 
   .h5p_singlechoiceset:before {
-    content: $singleChoiceSet;
+    content: icons.$singleChoiceSet;
   }
 
   .h5p_imageslider:before {
-    content: $imageSlider;
+    content: icons.$imageSlider;
   }
 
-  
+
 .hotspot{
   width: 25px;
   height: 25px;
@@ -162,8 +161,8 @@
   width: 60%;
 }
 
-  
-  
+
+
   .remove-hotspot-button {
    margin-left: 5px;
     background-color: #3080c9;
@@ -178,14 +177,14 @@
     cursor: pointer;
     z-index: 2;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-  
+
     &:hover {
       background-color: #1d4d7a;
       color: #fff;
     }
   }
-  
-  
+
+
    .hotspots-listItem {
     display: flex;
     flex-direction: row;
@@ -194,26 +193,26 @@
     border-bottom: 1px solid #e0e0e0;
     cursor: pointer;
     width: 100%;
-  
+
     margin: 10px 0;
-  
+
     &:hover {
       border-bottom: 1px solid #4d4b4b;
     }
-  
-    
+
+
     // remove outline from input
     input {
      border: none;
-  
+
       &:focus {
         outline: none;
       }
-  
-  
+
+
     }
   }
-  
+
   .infoText {
     font-size: 12px;
     margin-top: 0.3em;
@@ -221,12 +220,12 @@
     font-weight: 500;
     color: #434446;
     line-height: 15px;
-    letter-spacing: 0.5px;  
+    letter-spacing: 0.5px;
     font-family: "Open Sans", sans-serif;    display: inline-block;
   }
-  
-  
-  
+
+
+
   .tool-bar {
     width: 100%;
     display: flex;
@@ -235,24 +234,24 @@
     align-items: center;
     padding: 0px;
   }
-  
+
   .button {
     background: #2579C6;
     background-image: linear-gradient(#3080c9 50%, transparent 50%, transparent);
     border-color: #1f67a8;
-    text-transform: uppercase; 
+    text-transform: uppercase;
     border-radius: .25em;    border: 1px solid #d0d0d1;
     font-size: 16px;
     font-family: "Open Sans", sans-serif;    display: inline-block;
-    // font-family: "H5PFontIcons";    
+    // font-family: "H5PFontIcons";
     width: auto;
     margin: 10px 0 0 0;
     padding: 5px 20px;
-    box-sizing: border-box;    
+    box-sizing: border-box;
     color: #fff;
     cursor: pointer;
     font-weight: 600;
-  
+
     // on disabled
     &:disabled {
       background: #d0d0d1;
@@ -262,8 +261,8 @@
       cursor: not-allowed;
     }
   }
-  
-  
+
+
   /* The Modal (background) */
   .modal {
     display: none; /* Hidden by default */
@@ -277,7 +276,7 @@
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
-  
+
   /* Modal Content/Box */
   .modal-content {
     background-color: #fefefe;
@@ -286,7 +285,7 @@
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
   }
-  
+
   /* The Close Button */
   .close {
     color: #aaa;
@@ -294,7 +293,7 @@
     font-size: 28px;
     font-weight: bold;
   }
-  
+
   .close:hover,
   .close:focus {
     color: black;

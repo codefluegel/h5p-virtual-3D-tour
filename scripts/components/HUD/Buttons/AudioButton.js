@@ -1,6 +1,7 @@
 import React from 'react';
-
+import Button from './Button/Button';
 import { H5PContext } from '../../../context/H5PContext';
+import PropTypes from 'prop-types';
 
 export default class AudioButton extends React.Component {
   constructor(props) {
@@ -232,3 +233,10 @@ export default class AudioButton extends React.Component {
 }
 
 AudioButton.contextType = H5PContext;
+AudioButton.propTypes = {
+  isPlaying: PropTypes.string,
+  onIsPlaying: PropTypes.func,
+  isHiddenBehindOverlay: PropTypes.bool,
+  sceneAudioTrack: PropTypes.array,
+  sceneId: PropTypes.number,
+};

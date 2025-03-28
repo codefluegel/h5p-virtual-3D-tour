@@ -1,4 +1,4 @@
-@import "./colors";
+@use "./colors";
 
 html {
   box-sizing: border-box;
@@ -9,8 +9,8 @@ html {
 }
 
 .h5p-model-viewer {
-  background-color: $color-background;
-  color: $color-text;
+  background-color: colors.$color-background;
+  color: colors.$color-text;
   width: 100%;
 
   .h5p-model-viewer-main {
@@ -53,7 +53,7 @@ html {
   cursor: pointer;
 }
 .active {
-  background-color: $color-background;
+  background-color: colors.$color-background;
 }
 
 
@@ -69,14 +69,14 @@ html {
   background: #2579C6;
   background-image: linear-gradient(#3080c9 50%, transparent 50%, transparent);
   border-color: #1f67a8;
-  text-transform: uppercase; 
+  text-transform: uppercase;
   border-radius: .25em;    border: 1px solid #d0d0d1;
   font-size: 16px;
   font-family: "Open Sans", sans-serif;    display: inline-block;
   width: auto;
   margin: 10px 0 0 0;
   padding: 5px 20px;
-  box-sizing: border-box;    
+  box-sizing: border-box;
   color: #fff;
   cursor: pointer;
   font-weight: 600;
