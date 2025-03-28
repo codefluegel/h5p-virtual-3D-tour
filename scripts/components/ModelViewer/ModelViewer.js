@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { getSource } from '../../context/H5PContext';
 import './ModelViewer.scss';
+import he from 'he';
 
 /** @constant {number} FILE_PATH_TIMEOUT_MS File path setting timeout. */
 const FILE_PATH_TIMEOUT_MS = 500;
@@ -55,7 +56,7 @@ const ModelViewer = (props) => {
                 onClick={() => openModalByType(hotspot, index)}
               >
                 <span className='hotspot-label' onClick={() => openModalByType(hotspot, index)}>
-                  {`${hotspot.labelText}`}{' '}
+                {he.decode(hotspot.labelText)}
                 </span>
               </div>
             )
