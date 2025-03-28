@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { getSource } from '../../context/H5PContext';
-import PropTypes from 'prop-types';
+import './ModelViewer.scss';
 
 /** @constant {number} FILE_PATH_TIMEOUT_MS File path setting timeout. */
 const FILE_PATH_TIMEOUT_MS = 500;
@@ -31,7 +32,7 @@ const ModelViewer = (props) => {
       onClick={handleClick}
       style={{ width: '100%', height: '100%' }}
       src={filePath}
-      alt='Virtual 3D Tour Model'
+      alt={modelPath.split('/').pop().split('.').slice(0, -1).join('.')}
       auto-rotate
       loading='eager'
       ar
@@ -54,7 +55,7 @@ const ModelViewer = (props) => {
                 onClick={() => openModalByType(hotspot, index)}
               >
                 <span className='hotspot-label' onClick={() => openModalByType(hotspot, index)}>
-                  {`${index + 1}. ${hotspot.labelText}`}{' '}
+                  {`${hotspot.labelText}`}{' '}
                 </span>
               </div>
             )

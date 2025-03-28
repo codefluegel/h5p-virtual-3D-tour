@@ -1,0 +1,40 @@
+@use "../../styles/icons" as *;
+@use "../../styles/colors" as *;
+
+.hotspot {
+  width: 25px;
+  height: 25px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  background-color: $color-primary;
+  outline: 1px solid $color-primary;
+  cursor: pointer;
+  z-index: 1;
+  color: $color-background;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hotspot-label {
+  position: absolute;
+  left: 30px;
+  background-color: $color-background;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  font-size: 0.75em;
+  color: $color-text;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  cursor: pointer;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+

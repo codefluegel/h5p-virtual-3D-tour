@@ -1,14 +1,13 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import './Main.scss';
+import React from 'react';
 import { H5PContext } from '../context/H5PContext';
-import ModelViewer from './ModelViewer/ModelViewer';
+import { getModelFromId } from '../h5phelpers/modelParams.js';
 import Dialog from './Dialog/Dialog';
 import InteractionContent from './Dialog/InteractionContent';
-import { getModelFromId } from '../h5phelpers/modelParams.js';
 import HUD from './HUD/HUD';
 import LoadingSpinner from './LoadingSpinner/LoadingSpinner.js';
-import AudioButton from './HUD/Buttons/AudioButton.js';
+import './Main.scss';
+import ModelViewer from './ModelViewer/ModelViewer';
 
 /** @constant {number} LOADING_SPINNER_TIMEOUT_SHORT_MS Short timeout to hide loading spinner. */
 const LOADING_SPINNER_TIMEOUT_SHORT_MS = 500;
@@ -20,8 +19,6 @@ export default class Main extends React.Component {
   constructor(props) {
     super(props);
 
-    this.audioPlayers = {};
-
     this.state = {
       modelPath: this.props.currentModel,
       currentModelId: this.props.currentModel,
@@ -30,7 +27,6 @@ export default class Main extends React.Component {
       interactions: this.props.paramInteractions,
       showHotspotDialog: false,
       showInteractionDialog: false,
-      audioIsPlaying: null,
       loadingSpinner: false,
     };
   }
@@ -97,47 +93,9 @@ export default class Main extends React.Component {
   }
 
   componentWillUnmount() {
-    // remove event listener
-    this.state.modelViewerInstance.removeEventListener('load');
-  }
-
-  /**
-   * Get the audio player for the current track.
-   * @param {string} id Audio player id.
-   * @param {object} [hotspot] Parameters (Only needed initially)
-   * @returns {HTMLAudioElement|undefined} Audio or `undefined` if track isn't playable.
-   */
-  getAudioPlayer(id, hotspot) {
-    // Create player if none exist
-    if (this.audioPlayers[id] === undefined) {
-      if (
-        !hotspot ||
-        !hotspot.action ||
-        !hotspot.action.params ||
-        !hotspot.action.params.files ||
-        !hotspot.action.params.files.length
-      ) {
-        return; // No track to play
-      }
-      this.audioPlayers[id] = AudioButton.createAudioPlayer(
-        this.context.contentId,
-        hotspot.action.params.files,
-        () => {
-          this.setState({
-            audioIsPlaying: id, // Set state on starting to play
-          });
-        },
-        () => {
-          if (this.state.audioIsPlaying === id) {
-            this.setState({
-              audioIsPlaying: null, // Clear state on playing ended
-            });
-          }
-        },
-        false
-      );
+    if (this.state.modelViewerInstance) {
+      this.state.modelViewerInstance.removeEventListener('load', this.handleLoad);
     }
-    return this.audioPlayers[id];
   }
 
   goToStartModel() {
@@ -181,8 +139,7 @@ export default class Main extends React.Component {
 
     if (modelViewerInstance.paused) {
       modelViewerInstance.play();
-    }
-    else {
+    } else {
       modelViewerInstance.pause();
     }
   }
@@ -201,13 +158,7 @@ export default class Main extends React.Component {
     }));
   }
 
-  handleAudioIsPlaying(id) {
-    this.setState({
-      audioIsPlaying: id, // Change the player
-    });
-  }
-
-  showContentModal(hotspot, index) {
+  showContentModal(hotspot) {
     const library = H5P.libraryFromString(hotspot.action.library);
     const machineName = library.machineName;
 
@@ -218,39 +169,14 @@ export default class Main extends React.Component {
 
       const nextModelId = parseInt(hotspot.action.params.nextSceneId);
       this.navigateToModel(nextModelId);
-    }
-    else if (hotspot.action.metadata.contentType !== 'Text') {
-      const playerId = 'interaction' + `-${  index}`;
-      if (this.state.audioIsPlaying === playerId) {
-        // Pause and reset player
-        const lastPlayer = this.getAudioPlayer(playerId, hotspot);
-        if (lastPlayer) {
-          lastPlayer.pause();
-          lastPlayer.currentTime = 0;
-        }
-      }
-      else {
-        // Start current audio playback
-        const player = this.getAudioPlayer(playerId, hotspot);
-        if (player) {
-          player.play();
-        }
-      }
-
+    } else {
       this.setState({
         showInteractionDialog: true,
-      });
-    }
-    else {
-      this.setState({
-        showInteractionDialog: true,
-      });
-    }
 
-    this.setState({
-      hotspot: hotspot,
-      editingLibrary: hotspot.action.library,
-    });
+        hotspot: hotspot,
+        editingLibrary: hotspot.action.library,
+      });
+    }
   }
 
   render() {
@@ -273,11 +199,7 @@ export default class Main extends React.Component {
             onHideTextDialog={this.hideInteraction.bind(this)}
             dialogClasses={dialogClasses}
           >
-            <InteractionContent
-              hotspot={this.state.hotspot}
-              audioIsPlaying={this.state.audioIsPlaying}
-              onAudioIsPlaying={this.handleAudioIsPlaying.bind(this)}
-            />
+            <InteractionContent hotspot={this.state.hotspot} />
           </Dialog>
         )}
         <div className='container'>
