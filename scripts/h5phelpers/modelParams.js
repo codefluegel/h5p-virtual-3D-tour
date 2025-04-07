@@ -1,4 +1,4 @@
-import { isGoToScene } from './libraryParams';
+import { isGoToScene } from '@h5phelpers/libraryParams.js';
 
 /** @typedef {{ playlistId: string, title: string, audioTracks: object }} Playlist */
 /** @typedef {{ playlist: Playlist }} Model */

@@ -1,13 +1,13 @@
+import Dialog from '@components/Dialog/Dialog.js';
+import InteractionContent from '@components/Dialog/InteractionContent';
+import HUD from '@components/HUD/HUD';
+import LoadingSpinner from '@components/LoadingSpinner/LoadingSpinner.js';
+import '@components/Main.scss';
+import ModelViewer from '@components/ModelViewer/ModelViewer.js';
+import { H5PContext } from '@context/H5PContext';
+import { getModelFromId } from '@h5phelpers/modelParams.js';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { H5PContext } from '../context/H5PContext';
-import { getModelFromId } from '../h5phelpers/modelParams.js';
-import Dialog from './Dialog/Dialog';
-import InteractionContent from './Dialog/InteractionContent';
-import HUD from './HUD/HUD';
-import LoadingSpinner from './LoadingSpinner/LoadingSpinner.js';
-import './Main.scss';
-import ModelViewer from './ModelViewer/ModelViewer';
 
 /** @constant {number} LOADING_SPINNER_TIMEOUT_SHORT_MS Short timeout to hide loading spinner. */
 const LOADING_SPINNER_TIMEOUT_SHORT_MS = 500;
@@ -38,21 +38,8 @@ export default class Main extends React.Component {
     }
     modelViewer.autoRotate = false;
 
-    modelViewer.addEventListener('load', () => {
-      // create hotspots and set model viewer instance
+    modelViewer.addEventListener('load', () => this.handleLoad);
 
-      this.setState({
-        loadingSpinner: false,
-        interactions: this.state.interactions,
-        modelViewerInstance: modelViewer,
-        animations: modelViewer.availableAnimations,
-      });
-      setTimeout(() => {
-        this.setState({
-          loadingSpinner: false,
-        });
-      }, LOADING_SPINNER_TIMEOUT_MS);
-    });
     setTimeout(() => {
       this.setState({
         loadingSpinner: false,
@@ -98,6 +85,20 @@ export default class Main extends React.Component {
     }
   }
 
+  handleLoad() {
+    this.setState({
+      loadingSpinner: false,
+      interactions: this.state.interactions,
+      modelViewerInstance: modelViewer,
+      animations: modelViewer.availableAnimations,
+    });
+    setTimeout(() => {
+      this.setState({
+        loadingSpinner: false,
+      });
+    }, LOADING_SPINNER_TIMEOUT_MS);
+  }
+
   goToStartModel() {
     this.navigateToModel(this.context.params.startModelId);
     this.setState({
@@ -120,35 +121,11 @@ export default class Main extends React.Component {
   }
 
   handleModelClick() {
-    // retrieve clicked point on 3D Model from model-viewer instance
     if (this.state.editingLibrary) {
-      // const clickedPoint = this.state.modelViewerInstance.surfaceFromPoint(
-      //   event.clientX,
-      //   event.clientY
-      // );
-
       this.setState({
-        //showHotspotDialog: true,
+        showHotspotDialog: true,
       });
     }
-  }
-
-  // handle play/pause of animations contained by the model
-  handlePlayPause() {
-    const { modelViewerInstance } = this.state;
-
-    if (modelViewerInstance.paused) {
-      modelViewerInstance.play();
-    } else {
-      modelViewerInstance.pause();
-    }
-  }
-
-  handleCloseTextDialog() {
-    this.setState({
-      showHotspotDialog: false,
-      currentText: null,
-    });
   }
 
   hideInteraction() {
@@ -169,7 +146,8 @@ export default class Main extends React.Component {
 
       const nextModelId = parseInt(hotspot.action.params.nextSceneId);
       this.navigateToModel(nextModelId);
-    } else {
+    } 
+    else {
       this.setState({
         showInteractionDialog: true,
 
@@ -194,11 +172,7 @@ export default class Main extends React.Component {
     return (
       <div className='model-viewer-container'>
         {this.state.showInteractionDialog && (
-          <Dialog
-            title={'Test'}
-            onHideTextDialog={this.hideInteraction.bind(this)}
-            dialogClasses={dialogClasses}
-          >
+          <Dialog onHideTextDialog={this.hideInteraction.bind(this)} dialogClasses={dialogClasses}>
             <InteractionContent hotspot={this.state.hotspot} />
           </Dialog>
         )}

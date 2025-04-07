@@ -1,0 +1,68 @@
+{
+  "semantics": [
+    {
+      "label": "3D-Modell-Viewer-Editor/Navigation",
+      "fields": [
+        {
+          "label": "Modelle",
+          "entity": "Modell",
+          "field": {
+            "fields": [
+              {
+                "label": "3D-Datei",
+                "description": "3D-Modell (.glb | .gltf)"
+              },
+              {},
+              {
+                "label": "Modellname"
+              },
+              {
+                "field": {
+                  "fields": [
+                    {
+                      "label": "Beschriftung",
+                      "description": "Wenn leer, wird keine Beschriftung angezeigt. Wir versuchen stattdessen, das Titelfeld für Screenreader zu verwenden."
+                    },
+                    {
+                      "label": "Beschriftungseinstellungen",
+                      "fields": [
+                        {
+                          "label": "Position der Beschriftung",
+                          "description": "Wählen Sie, wo die Beschriftung erscheinen soll",
+                          "options": [
+                            {
+                              "label": "Verhaltenseinstellung verwenden"
+                            },
+                            {
+                              "label": "Rechtsbündig"
+                            },
+                            {
+                              "label": "Linksbündig"
+                            },
+                            {
+                              "label": "Oben ausgerichtet"
+                            },
+                            {
+                              "label": "Unten ausgerichtet"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {},
+                    {}
+                  ]
+                }
+              },
+              {
+                "label": "Modellbeschreibung (für Screenreader)",
+                "description": "Ein Text, der das Modell für den Endbenutzer beschreiben kann."
+              }
+            ]
+          }
+        },
+        {}
+      ]
+    }
+  ]
+}

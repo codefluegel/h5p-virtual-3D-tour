@@ -1,7 +1,7 @@
+import '@components/Dialog/Dialog.scss';
+import { H5PContext } from '@context/H5PContext';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { H5PContext } from '../../context/H5PContext';
-import './Dialog.scss';
 
 export default class Dialog extends React.Component {
   constructor(props) {
@@ -13,10 +13,8 @@ export default class Dialog extends React.Component {
   }
 
   componentDidMount() {
-    // Save the last focused element
     this.lastFocusedElement = document.activeElement;
 
-    // Focus the dialog
     if (this.dialogRef.current) {
       this.focusableElements = this.dialogRef.current.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -26,17 +24,14 @@ export default class Dialog extends React.Component {
       }
     }
 
-    // Add keydown listener for Escape and focus trap
     document.addEventListener('keydown', this.handleKeyDown);
   }
 
   componentWillUnmount() {
-    // Restore focus to the last focused element
     if (this.lastFocusedElement) {
       this.lastFocusedElement.focus();
     }
 
-    // Remove keydown listener
     document.removeEventListener('keydown', this.handleKeyDown);
   }
 
@@ -101,15 +96,13 @@ export default class Dialog extends React.Component {
 
 Dialog.contextType = H5PContext;
 
-// Define prop types for the Dialog component
 Dialog.propTypes = {
-  title: PropTypes.string.isRequired, // Title of the dialog
-  children: PropTypes.node.isRequired, // Content inside the dialog
-  dialogClasses: PropTypes.arrayOf(PropTypes.string), // Additional CSS classes for the dialog
-  onHideTextDialog: PropTypes.func.isRequired, // Function to handle closing the dialog
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  dialogClasses: PropTypes.arrayOf(PropTypes.string),
+  onHideTextDialog: PropTypes.func.isRequired,
 };
 
-// Define default props for optional props
 Dialog.defaultProps = {
-  dialogClasses: [], // Default to an empty array if no classes are provided
+  dialogClasses: [],
 };

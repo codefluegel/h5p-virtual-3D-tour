@@ -1,9 +1,8 @@
+import Main from '@components/Main.js';
+import { H5PContext } from '@context/H5PContext.js';
+import { sanitizeContentTypeParameters } from '@utils/sanitization';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import Main from './components/Main';
-import { H5PContext } from './context/H5PContext';
-
-import { sanitizeContentTypeParameters } from './utils/sanitization';
 
 export default class Wrapper extends H5P.EventDispatcher {
   constructor(params, contentId, extras = {}) {
@@ -25,6 +24,7 @@ export default class Wrapper extends H5P.EventDispatcher {
           currentModel={this.currentModelId}
           paramInteractions={this.params.interactions}
           setCurrentModelId={this.setCurrentModelId.bind(this)}
+          modelDescriptionARIA={this.params.modelViewerWidget?.modelDescriptionARIA}
         />
       </H5PContext.Provider>
     );
@@ -103,7 +103,7 @@ export default class Wrapper extends H5P.EventDispatcher {
     const wrapperSize = this.wrapper.getBoundingClientRect();
     if (wrapperSize.width < mobileThreshold) {
       this.wrapper.classList.add('mobile');
-    }
+    } 
     else {
       this.wrapper.classList.remove('mobile');
     }

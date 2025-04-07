@@ -53,6 +53,10 @@
                     {}
                   ]
                 }
+              },
+              {
+                "label": "Model description (for screen readers)",
+                "description": "A text that can describe the model for the end-user. "
               }
             ]
           }

@@ -25,3 +25,5 @@ entries
 libraries
 scripts
 temp
+entries
+eslint.config.js
