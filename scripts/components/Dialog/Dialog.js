@@ -39,7 +39,8 @@ export default class Dialog extends React.Component {
     if (event.key === 'Escape') {
       // Close the dialog on Escape key press
       this.props.onHideTextDialog();
-    } else if (event.key === 'Tab') {
+    } 
+    else if (event.key === 'Tab') {
       // Trap focus within the dialog
       const firstElement = this.focusableElements[0];
       const lastElement = this.focusableElements[this.focusableElements.length - 1];
@@ -48,7 +49,8 @@ export default class Dialog extends React.Component {
         // Shift+Tab: Move focus to the last element
         event.preventDefault();
         lastElement.focus();
-      } else if (!event.shiftKey && document.activeElement === lastElement) {
+      } 
+      else if (!event.shiftKey && document.activeElement === lastElement) {
         // Tab: Move focus to the first element
         event.preventDefault();
         firstElement.focus();
@@ -66,10 +68,10 @@ export default class Dialog extends React.Component {
       this.props.children.type === 'div'
         ? this.props.children
         : React.Children.map(this.props.children, (child) =>
-            React.cloneElement(child, {
-              onResize: this.handleResize,
-            })
-          );
+          React.cloneElement(child, {
+            onResize: this.handleResize,
+          })
+        );
 
     return (
       <div

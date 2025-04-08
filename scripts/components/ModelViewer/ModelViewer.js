@@ -35,14 +35,13 @@ const ModelViewer = (props) => {
 
     return () => clearTimeout(timeoutId);
   }, [hotspots]);
-
   return (
     <model-viewer
       id={id}
       onClick={handleClick}
       class='modelViewer'
       src={filePath}
-      alt={modelDescriptionARIA}
+      alt={purifyHTML(modelDescriptionARIA)}
       auto-rotate
       loading='eager'
       ar

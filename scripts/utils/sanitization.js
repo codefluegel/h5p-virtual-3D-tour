@@ -1,70 +1,79 @@
 import { extend, purifyHTML } from './utils.js';
 
 /**
- * Sanitize the content type's parameters.
+ * Sanitize the content type's parameters based on the semantics.json.
  * @param {object} params Parameters.
  * @returns {object} Sanitized parameters.
  */
 export const sanitizeContentTypeParameters = (params = {}) => {
   params = extend(
     {
-      glbModel: {},
       modelViewerWidget: {
-        interactions: [],
-      },
-      behaviour: {
-        audioType: 'audio',
-        showScoresButton: false,
-        showHomeButton: true,
-        sceneRenderingQuality: 'high',
-        label: {
-          labelPosition: 'right',
-          showLabel: true,
-        },
+        models: [],
+        startModelId: 0,
       },
       l10n: {
-        title: 'Virtual Tour',
-        playAudioTrack: 'Play Audio Track',
-        pauseAudioTrack: 'Pause Audio Track',
-        sceneDescription: 'Scene Description',
-        resetCamera: 'Reset Camera',
-        submitDialog: 'Submit Dialog',
-        closeDialog: 'Close Dialog',
-        expandButtonAriaLabel: 'Expand the visual label',
-        goToStartScene: 'Go to start scene',
-        userIsAtStartScene: 'You are at the start scene',
-        unlocked: 'Unlocked',
-        locked: 'Locked',
-        searchRoomForCode: 'Search the room until you find the code',
-        wrongCode: 'The code was wrong, try again.',
-        contentUnlocked: 'The content has been unlocked!',
-        code: 'Code',
-        showCode: 'Show code',
-        hideCode: 'Hide code',
-        unlockedStateAction: 'Continue',
-        lockedStateAction: 'Unlock',
-        hotspotDragHorizAlt: 'Drag horizontally to scale hotspot',
-        hotspotDragVertiAlt: 'Drag vertically to scale hotspot',
-        backgroundLoading: 'Loading background image...',
-        noContent: 'No content',
-        hint: 'Hint',
-        lockedContent: 'Locked content',
-        back: 'Back',
-        buttonFullscreenEnter: 'Enter fullscreen mode',
-        buttonFullscreenExit: 'Exit fullscreen mode',
-        noValidScenesSet: 'No valid scenes have been set.',
-        buttonZoomIn: 'Zoom in',
-        buttonZoomOut: 'Zoom out',
-        zoomToolbar: 'Zoom toolbar',
-        zoomAria: ':num% zoomed in',
+        'model-title': 'Model Viewer',
+        close: 'Close',
+        play: 'Play',
+        pause: 'Pause',
       },
     },
     params
   );
 
+  // Sanitize modelViewerWidget
+  if (params.modelViewerWidget && Array.isArray(params.modelViewerWidget.models)) {
+    params.modelViewerWidget.models = params.modelViewerWidget.models.map((model) => {
+      const sanitizedModel = extend(
+        {
+          glbModel: {},
+          modelId: undefined,
+          modelName: undefined,
+          interactions: [],
+          modelDescriptionARIA: undefined,
+        },
+        model
+      );
+
+      // Sanitize modelName and modelDescriptionARIA
+      sanitizedModel.modelName = purifyHTML(sanitizedModel.modelName);
+      sanitizedModel.modelDescriptionARIA = purifyHTML(sanitizedModel.modelDescriptionARIA);
+
+      // Sanitize interactions
+      if (Array.isArray(sanitizedModel.interactions)) {
+        sanitizedModel.interactions = sanitizedModel.interactions.map((interaction) => {
+          const sanitizedInteraction = extend(
+            {
+              labelText: undefined,
+              label: {
+                labelPosition: 'inherit',
+              },
+              action: undefined,
+              interactionpos: undefined,
+            },
+            interaction
+          );
+
+          // Sanitize labelText
+          sanitizedInteraction.labelText = purifyHTML(sanitizedInteraction.labelText);
+
+          return sanitizedInteraction;
+        });
+      }
+
+      return sanitizedModel;
+    });
+  }
+  if (params.modelViewerWidget && typeof params.modelViewerWidget.startModelId !== 'number') {
+    params.modelViewerWidget.startModelId = 0;
+  }
+
   // Sanitize localization
-  for (const key in params.l10n) {
-    params.l10n[key] = purifyHTML(params.l10n[key]);
+  if (params.l10n) {
+    for (const key in params.l10n) {
+      params.l10n[key] = purifyHTML(params.l10n[key]);
+    }
   }
 
   return params;

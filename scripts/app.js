@@ -7,11 +7,10 @@ import { createRoot } from 'react-dom/client';
 export default class Wrapper extends H5P.EventDispatcher {
   constructor(params, contentId, extras = {}) {
     super('Virtual3DTour');
-
     this.params = sanitizeContentTypeParameters(params);
     this.contentId = contentId;
     this.extras = extras;
-
+    this.l10n = this.params.l10n;
     this.params = this.params.modelViewerWidget;
   }
 

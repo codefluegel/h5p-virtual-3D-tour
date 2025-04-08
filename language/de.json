@@ -1,7 +1,7 @@
 {
   "semantics": [
     {
-      "label": "3D-Modell-Viewer-Editor/Navigation",
+      "label": "3D-Modell-Viewer Editor/Navigation",
       "fields": [
         {
           "label": "Modelle",
@@ -21,17 +21,17 @@
                   "fields": [
                     {
                       "label": "Beschriftung",
-                      "description": "Wenn leer, wird keine Beschriftung angezeigt. Wir versuchen stattdessen, das Titelfeld für Screenreader zu verwenden."
+                      "description": "Wenn leer gelassen, wird keine Beschriftung angezeigt und wir versuchen, das Titelfeld für Bildschirmleser zu verwenden."
                     },
                     {
                       "label": "Beschriftungseinstellungen",
                       "fields": [
                         {
-                          "label": "Position der Beschriftung",
+                          "label": "Beschriftungsposition",
                           "description": "Wählen Sie, wo die Beschriftung erscheinen soll",
                           "options": [
                             {
-                              "label": "Verhaltenseinstellung verwenden"
+                              "label": "Verhaltensbedingte Einstellung verwenden"
                             },
                             {
                               "label": "Rechtsbündig"
@@ -55,13 +55,34 @@
                 }
               },
               {
-                "label": "Modellbeschreibung (für Screenreader)",
+                "label": "Modellbeschreibung (für Bildschirmleser)",
                 "description": "Ein Text, der das Modell für den Endbenutzer beschreiben kann."
               }
             ]
           }
         },
         {}
+      ]
+    },
+    {
+      "label": "Lokalisieren",
+      "fields": [
+        {
+          "label": "Aria-Beschriftung für den Inhaltstyp",
+          "default": "Model Viewer"
+        },
+        {
+          "label": "Aria-Beschriftung für die Schließen-Schaltfläche",
+          "default": "Schließen"
+        },
+        {
+          "label": "Aria-Beschriftung für die Abspielen-Schaltfläche",
+          "default": "Abspielen"
+        },
+        {
+          "label": "Aria-Beschriftung für die Pause-Schaltfläche",
+          "default": "Pause"
+        }
       ]
     }
   ]

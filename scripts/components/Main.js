@@ -4,6 +4,7 @@ import HUD from '@components/HUD/HUD';
 import LoadingSpinner from '@components/LoadingSpinner/LoadingSpinner.js';
 import '@components/Main.scss';
 import ModelViewer from '@components/ModelViewer/ModelViewer.js';
+import ToolBar from '@components/Toolbar/Toolbar.js';
 import { H5PContext } from '@context/H5PContext';
 import { getModelFromId } from '@h5phelpers/modelParams.js';
 import PropTypes from 'prop-types';
@@ -38,8 +39,21 @@ export default class Main extends React.Component {
     }
     modelViewer.autoRotate = false;
 
-    modelViewer.addEventListener('load', () => this.handleLoad);
+    modelViewer.addEventListener('load', () => {
+      // create hotspots and set model viewer instance
 
+      this.setState({
+        loadingSpinner: false,
+        interactions: this.state.interactions,
+        modelViewerInstance: modelViewer,
+        animations: modelViewer.availableAnimations,
+      });
+      setTimeout(() => {
+        this.setState({
+          loadingSpinner: false,
+        });
+      }, LOADING_SPINNER_TIMEOUT_MS);
+    });
     setTimeout(() => {
       this.setState({
         loadingSpinner: false,
@@ -81,22 +95,15 @@ export default class Main extends React.Component {
 
   componentWillUnmount() {
     if (this.state.modelViewerInstance) {
-      this.state.modelViewerInstance.removeEventListener('load', this.handleLoad);
-    }
-  }
-
-  handleLoad() {
-    this.setState({
-      loadingSpinner: false,
-      interactions: this.state.interactions,
-      modelViewerInstance: modelViewer,
-      animations: modelViewer.availableAnimations,
-    });
-    setTimeout(() => {
-      this.setState({
-        loadingSpinner: false,
+      this.state.modelViewerInstance.removeEventListener('load', () => {
+        this.setState({
+          loadingSpinner: false,
+          interactions: [],
+          modelViewerInstance: null,
+          animations: [],
+        });
       });
-    }, LOADING_SPINNER_TIMEOUT_MS);
+    }
   }
 
   goToStartModel() {
@@ -165,7 +172,6 @@ export default class Main extends React.Component {
 
       dialogClasses.push(interactionClass);
     }
-
     const model = getModelFromId(this.context.params.models, this.props.currentModel);
     const isStartModel = this.props.currentModel === this.context.params.startModelId;
 
@@ -186,7 +192,14 @@ export default class Main extends React.Component {
               modelPath={model.glbModel.path}
               showContentModal={this.showContentModal.bind(this)}
               mvInstance={this.state.modelViewerInstance}
+              modelDescriptionARIA={model.modelDescriptionARIA}
             />
+            {this.state.animations.length > 0 && !this.state.showInteractionDialog && (
+              <ToolBar
+                animations={this.state.animations}
+                modelViewerInstance={this.state.modelViewerInstance}
+              />
+            )}
             <HUD
               onGoToStartModel={this.goToStartModel.bind(this)}
               showHomeButton={true}
