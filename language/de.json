@@ -1,0 +1,89 @@
+{
+  "semantics": [
+    {
+      "label": "3D-Modell-Viewer Editor/Navigation",
+      "fields": [
+        {
+          "label": "Modelle",
+          "entity": "Modell",
+          "field": {
+            "fields": [
+              {
+                "label": "3D-Datei",
+                "description": "3D-Modell (.glb | .gltf)"
+              },
+              {},
+              {
+                "label": "Modellname"
+              },
+              {
+                "field": {
+                  "fields": [
+                    {
+                      "label": "Beschriftung",
+                      "description": "Wenn leer gelassen, wird keine Beschriftung angezeigt und wir versuchen, das Titelfeld für Bildschirmleser zu verwenden."
+                    },
+                    {
+                      "label": "Beschriftungseinstellungen",
+                      "fields": [
+                        {
+                          "label": "Beschriftungsposition",
+                          "description": "Wählen Sie, wo die Beschriftung erscheinen soll",
+                          "options": [
+                            {
+                              "label": "Verhaltensbedingte Einstellung verwenden"
+                            },
+                            {
+                              "label": "Rechtsbündig"
+                            },
+                            {
+                              "label": "Linksbündig"
+                            },
+                            {
+                              "label": "Oben ausgerichtet"
+                            },
+                            {
+                              "label": "Unten ausgerichtet"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {},
+                    {}
+                  ]
+                }
+              },
+              {
+                "label": "Modellbeschreibung (für Bildschirmleser)",
+                "description": "Ein Text, der das Modell für den Endbenutzer beschreiben kann."
+              }
+            ]
+          }
+        },
+        {}
+      ]
+    },
+    {
+      "label": "Lokalisieren",
+      "fields": [
+        {
+          "label": "Aria-Beschriftung für den Inhaltstyp",
+          "default": "Model Viewer"
+        },
+        {
+          "label": "Aria-Beschriftung für die Schließen-Schaltfläche",
+          "default": "Schließen"
+        },
+        {
+          "label": "Aria-Beschriftung für die Abspielen-Schaltfläche",
+          "default": "Abspielen"
+        },
+        {
+          "label": "Aria-Beschriftung für die Pause-Schaltfläche",
+          "default": "Pause"
+        }
+      ]
+    }
+  ]
+}

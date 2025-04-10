@@ -1,19 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { getSource } from '../../context/H5PContext';
+import '@components/ModelViewer/ModelViewer.scss';
+import { getSource } from '@context/H5PContext';
+import { purifyHTML } from '@utils/utils.js';
 import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 
 /** @constant {number} FILE_PATH_TIMEOUT_MS File path setting timeout. */
 const FILE_PATH_TIMEOUT_MS = 500;
 
 const ModelViewer = (props) => {
-  const { handleClick, hotspots, modelPath, id, showContentModal, contentId, mvInstance } = props;
+  const {
+    handleClick,
+    hotspots,
+    modelPath,
+    id,
+    showContentModal,
+    contentId,
+    mvInstance,
+    modelDescriptionARIA,
+  } = props;
+
+  const [hs, sethotspots] = useState(null);
+  const [filePath, setFilePath] = useState(null);
 
   const openModalByType = (hotspot, index) => {
     showContentModal(hotspot, index);
   };
-
-  const [hs, sethotspots] = useState(null);
-  const [filePath, setFilePath] = useState(null);
 
   useEffect(() => {
     setFilePath(null);
@@ -24,14 +35,13 @@ const ModelViewer = (props) => {
 
     return () => clearTimeout(timeoutId);
   }, [hotspots]);
-
   return (
     <model-viewer
       id={id}
       onClick={handleClick}
-      style={{ width: '100%', height: '100%' }}
+      class='modelViewer'
       src={filePath}
-      alt='Virtual 3D Tour Model'
+      alt={purifyHTML(modelDescriptionARIA)}
       auto-rotate
       loading='eager'
       ar
@@ -45,17 +55,20 @@ const ModelViewer = (props) => {
           return (
             hotspot.interactionpos && (
               <div
-                className={`hotspot h5p_${hotspot.action.metadata.contentType
-                  .replace(/[ ,]+/g, '_')
-                  .toLowerCase()}`}
+                className='hotspot'
                 key={index}
                 slot={`hotspot-${index}`}
                 data-surface={hotspot.interactionpos}
-                onClick={() => openModalByType(hotspot, index)}
               >
-                <span className='hotspot-label' onClick={() => openModalByType(hotspot, index)}>
-                  {`${index + 1}. ${hotspot.labelText}`}{' '}
-                </span>
+                <button
+                  className={`hotspot h5p_${hotspot.action.metadata.contentType
+                    .replace(/[ ,]+/g, '_')
+                    .toLowerCase()}`}
+                  aria-label={purifyHTML(hotspot.labelText)}
+                  onClick={() => openModalByType(hotspot, index)}
+                  onKeyDown={(event) => handleKeyDown(event, hotspot, index)}
+                />
+                <div className='hotspot-label'>{purifyHTML(hotspot.labelText)}</div>
               </div>
             )
           );
@@ -69,6 +82,7 @@ export default ModelViewer;
 ModelViewer.propTypes = {
   id: PropTypes.string,
   contentId: PropTypes.string,
+  modelDescriptionARIA: PropTypes.string,
   handleClick: PropTypes.func,
   hotspots: PropTypes.array,
   modelPath: PropTypes.string,

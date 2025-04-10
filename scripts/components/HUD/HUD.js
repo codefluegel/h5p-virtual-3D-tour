@@ -1,35 +1,14 @@
-import React from 'react';
-import Button from './Buttons/Button/Button';
-import './HUD.scss';
-import { H5PContext } from '../../context/H5PContext';
+import Button from '@components/HUD/Buttons/Button/Button';
+import '@components/HUD/HUD.scss';
+import { H5PContext } from '@context/H5PContext';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 export default class HUD extends React.Component {
   constructor(props) {
     super(props);
 
     this.buttons = {};
-  }
-
-  /**
-   * Help pick the audio track for the given scene.
-   * @param {object} scene Scene object.
-   * @returns {object} Props for the audio track.
-   */
-  getSceneAudioTrack(scene) {
-    const props = {
-      isPlaying: this.props.audioIsPlaying,
-      onIsPlaying: this.props.onAudioIsPlaying,
-      isHiddenBehindOverlay: this.props.isHiddenBehindOverlay,
-      nextFocus: this.props.nextFocus,
-    };
-
-    if (scene && scene.audio && scene.audio.length) {
-      props.sceneAudioTrack = scene.audio;
-      props.sceneId = scene.sceneId;
-    }
-
-    return props;
   }
 
   handleSceneDescription() {

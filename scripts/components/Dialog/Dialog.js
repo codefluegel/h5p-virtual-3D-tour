@@ -1,30 +1,60 @@
-import React from 'react';
-import './Dialog.scss';
-import { H5PContext } from '../../context/H5PContext';
+import '@components/Dialog/Dialog.scss';
+import { H5PContext } from '@context/H5PContext';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 export default class Dialog extends React.Component {
   constructor(props) {
     super(props);
+    this.dialogRef = React.createRef();
+    this.focusableElements = [];
+    this.lastFocusedElement = null;
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   componentDidMount() {
-    // Focus must be set to the first focusable element
-    //  this.title.focus();
-  }
+    this.lastFocusedElement = document.activeElement;
 
-  handleDialogRef(el) {
-    if (el) {
-      this.el = el;
+    if (this.dialogRef.current) {
+      this.focusableElements = this.dialogRef.current.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (this.focusableElements.length > 0) {
+        this.focusableElements[0].focus();
+      }
     }
+
+    document.addEventListener('keydown', this.handleKeyDown);
   }
 
-  handleResize() {
-    if (this.el) {
-      // Reset to allow size growth
-      this.el.style.width = '';
-      this.el.style.height = '';
-      this.el.style.height = `${this.el.getBoundingClientRect().height  }px`;
+  componentWillUnmount() {
+    if (this.lastFocusedElement) {
+      this.lastFocusedElement.focus();
+    }
+
+    document.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown(event) {
+    if (event.key === 'Escape') {
+      // Close the dialog on Escape key press
+      this.props.onHideTextDialog();
+    } 
+    else if (event.key === 'Tab') {
+      // Trap focus within the dialog
+      const firstElement = this.focusableElements[0];
+      const lastElement = this.focusableElements[this.focusableElements.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstElement) {
+        // Shift+Tab: Move focus to the last element
+        event.preventDefault();
+        lastElement.focus();
+      } 
+      else if (!event.shiftKey && document.activeElement === lastElement) {
+        // Tab: Move focus to the first element
+        event.preventDefault();
+        firstElement.focus();
+      }
     }
   }
 
@@ -44,7 +74,13 @@ export default class Dialog extends React.Component {
         );
 
     return (
-      <div className='h5p-text-overlay' role='dialog' aria-label={this.props.title}>
+      <div
+        className='h5p-text-overlay'
+        role='dialog'
+        aria-label={this.props.title}
+        ref={this.dialogRef}
+        aria-modal='true'
+      >
         <div className='h5p-dialog-focusstart' tabIndex='-1'></div>
         <div className={dialogClasses.join(' ')}>
           <div className='h5p-text-content'>{children}</div>
@@ -53,7 +89,7 @@ export default class Dialog extends React.Component {
             aria-label={'Close'}
             className='close-button-wrapper'
             onClick={this.props.onHideTextDialog}
-          />
+          ></button>
         </div>
       </div>
     );
@@ -63,8 +99,12 @@ export default class Dialog extends React.Component {
 Dialog.contextType = H5PContext;
 
 Dialog.propTypes = {
-  title: PropTypes.string,
-  onHideTextDialog: PropTypes.func,
-  dialogClasses: PropTypes.array,
-  children: PropTypes.node,
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  dialogClasses: PropTypes.arrayOf(PropTypes.string),
+  onHideTextDialog: PropTypes.func.isRequired,
+};
+
+Dialog.defaultProps = {
+  dialogClasses: [],
 };

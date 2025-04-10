@@ -102,6 +102,15 @@
                   }
                 ]
               }
+            },
+            {
+              "name": "modelDescriptionARIA",
+              "type": "text",
+              "widget": "html",
+              "label": "Model description (for screen readers)",
+              "description": "A text that can describe the model for the end-user. ",
+              "tags": [],
+              "optional": true
             }
           ]
         }
@@ -110,6 +119,38 @@
         "name": "startModelId",
         "type": "number",
         "default": 0
+      }
+    ]
+  },
+  {
+    "name": "l10n",
+    "type": "group",
+    "common": true,
+    "label": "Localize",
+    "fields": [
+      {
+        "name": "model-title",
+        "type": "text",
+        "label": "Aria label for content type",
+        "default": "Model Viewer"
+      },
+      {
+        "name": "close",
+        "type": "text",
+        "label": "Aria label for close button",
+        "default": "Close"
+      },
+      {
+        "name": "play",
+        "type": "text",
+        "label": "Aria label for play button",
+        "default": "Play"
+      },
+      {
+        "name": "pause",
+        "type": "text",
+        "label": "Aria label for pause button",
+        "default": "Pause"
       }
     ]
   }
