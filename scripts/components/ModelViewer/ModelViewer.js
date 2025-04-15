@@ -27,17 +27,18 @@ const ModelViewer = (props) => {
   };
 
   const POLLING_INTERVAL_MS = 500;
-  const MAX_POLL_ATTEMPTS = 50;
+  const MAX_POLL_ATTEMPTS = 5;
 
   useEffect(() => {
     let pollCount = 0;
     let intervalId;
 
-    const attemptLoad = () => {
+    const checkAndLoadOnTimeout = () => {
       if (window.modelViewerLoaded) {
         clearInterval(intervalId);
         return;
       }
+
       if (pollCount >= MAX_POLL_ATTEMPTS) {
         clearInterval(intervalId);
         import('@google/model-viewer')
@@ -49,12 +50,15 @@ const ModelViewer = (props) => {
           });
         return;
       }
+
       pollCount++;
     };
 
-    intervalId = setInterval(attemptLoad, POLLING_INTERVAL_MS);
+    if (!window.modelViewerLoaded) {
+      intervalId = setInterval(checkAndLoadOnTimeout, POLLING_INTERVAL_MS);
+    }
 
-    return () => clearInterval(intervalId);
+    return () => clearInterval(intervalId); 
   }, []);
 
   useEffect(() => {
