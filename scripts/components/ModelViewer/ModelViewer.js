@@ -26,6 +26,37 @@ const ModelViewer = (props) => {
     showContentModal(hotspot, index);
   };
 
+  const POLLING_INTERVAL_MS = 500;
+  const MAX_POLL_ATTEMPTS = 50;
+
+  useEffect(() => {
+    let pollCount = 0;
+    let intervalId;
+
+    const attemptLoad = () => {
+      if (window.modelViewerLoaded) {
+        clearInterval(intervalId);
+        return;
+      }
+      if (pollCount >= MAX_POLL_ATTEMPTS) {
+        clearInterval(intervalId);
+        import('@google/model-viewer')
+          .then(() => {
+            window.modelViewerLoaded = true;
+          })
+          .catch((error) => {
+            console.error('Error loading Model Viewer after timeout:', error);
+          });
+        return;
+      }
+      pollCount++;
+    };
+
+    intervalId = setInterval(attemptLoad, POLLING_INTERVAL_MS);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   useEffect(() => {
     setFilePath(null);
     const timeoutId = setTimeout(() => {

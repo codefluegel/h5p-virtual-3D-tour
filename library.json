@@ -3,7 +3,7 @@
   "description": "Explore an interactive world in 3D.",
   "majorVersion": 1,
   "minorVersion": 0,
-  "patchVersion": 6,
+  "patchVersion": 7,
   "runnable": 1,
   "author": "codefluegel",
   "license": "MIT",
@@ -15,11 +15,6 @@
       "majorVersion": 1,
       "minorVersion": 0,
       "patchVersion": 6
-    },
-    {
-      "machineName": "H5P.ModelViewerScript",
-      "majorVersion": 1,
-      "minorVersion": 0
     },
     {
       "machineName": "FontAwesome",
